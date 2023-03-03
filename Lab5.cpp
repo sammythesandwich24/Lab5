@@ -3,32 +3,24 @@
 
 using namespace std;
 
-string encode(string text, string cipher) {
+int main() {
+    string cipher = "VFXBLITZJRPHDKNOWSGUYQMACE";
+    string input;
+    cout << "Enter a string to encode: ";
+    getline(cin, input);
+
+    // Encode the input string using the cipher
     string encoded = "";
-    for (char c : text) {
-        if (c >= 'A' && c <= 'Z') {
-            encoded += cipher[c - 'A'];
-        }
-        else if (c >= 'a' && c <= 'z') {
-            char upperCaseLetter = c - 32;
-            char upperCaseCode = cipher[upperCaseLetter - 'A'];
-            encoded += (upperCaseCode + 32);
+    for (char c : input) {
+        if (isalpha(c)) {
+            char encoded_c = cipher[toupper(c) - 'A'];
+            encoded += (isupper(c) ? encoded_c : tolower(encoded_c));
         }
         else {
             encoded += c;
         }
     }
-    return encoded;
-}
 
-int main() {
-    string cipher = "VFXBLITZJRPDHKNOWSGUYQMACE";
-    string text;
-    cout << "Input text to cipher: ";
-    getline(cin, text);
-
-    string encoded = encode(text, cipher);
-
-    cout << "Encoded message: " << encoded << endl;
+    cout << "Encoded string: " << encoded << endl;
     return 0;
 }
